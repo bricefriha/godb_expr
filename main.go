@@ -21,4 +21,15 @@ func main() {
 	for i := 0; i < len(res); i++ {
 		fmt.Println(res[i])
 	}
+
+	// Add an animal
+	newAnimal := "cows"
+	newList := append(res, newAnimal)
+
+	newData, err := json.MarshalIndent(newList, "", "	")
+	if err != nil {
+		log.Fatal(err)
+	}
+	os.WriteFile("exampleDocs/animalList.json", newData, os.ModePerm)
+
 }
