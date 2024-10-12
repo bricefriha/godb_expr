@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"godb/services"
 	"log"
 	"os"
 )
@@ -23,13 +24,5 @@ func main() {
 	}
 
 	// Add an animal
-	newAnimal := "cows"
-	newList := append(res, newAnimal)
-
-	newData, err := json.MarshalIndent(newList, "", "	")
-	if err != nil {
-		log.Fatal(err)
-	}
-	os.WriteFile("exampleDocs/animalList.json", newData, os.ModePerm)
-
+	services.AddAnimal("cows", "exampleDocs/animalList.json")
 }
