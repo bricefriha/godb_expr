@@ -11,3 +11,11 @@ The Godb_expr is a database engine utilising JSON files (as sheets). Similar to 
 
 
 ...I'm not done with this readme...
+
+## Contribute
+there is nothing to contribute (for now/ever), but you can still run the project if you want:
+1. Fork the project
+2. Clone your fork
+3. run: `go run main.go`
+
+>⚠️ you need Go installed, obviously
