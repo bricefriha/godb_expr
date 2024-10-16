@@ -9,9 +9,8 @@ func main() {
 	fmt.Println("Engine started!!")
 
 	// Add an animal
-	services.Insert([]byte(`
-	{ 
-		"id": "dwdeifhei23", 
+	services.Insert(`
+	{
 		"label": "cows" 
-	}`), "exampleDocs/animalList.json")
+	}`, "exampleDocs/animalList.json")
 }

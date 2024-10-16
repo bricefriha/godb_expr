@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"log"
 	"os"
+
+	"github.com/google/uuid"
 )
 
 func AddToSheet(name string, pathFile string) {
@@ -25,7 +27,8 @@ func AddToSheet(name string, pathFile string) {
 	}
 	os.WriteFile(pathFile, newData, os.ModePerm)
 }
-func Insert(elem []byte, pathFile string) {
+func Insert(elem string, pathFile string) {
+	var elemData = []byte(elem)
 	// Read the sheet
 	fileData, fileErr := os.ReadFile(pathFile)
 	if fileErr != nil {
@@ -34,10 +37,12 @@ func Insert(elem []byte, pathFile string) {
 
 	// Convert the data to structure
 	var data map[string]interface{}
-	err := json.Unmarshal(elem, &data)
+	err := json.Unmarshal(elemData, &data)
 	if err != nil {
 		panic(err)
 	}
+	// Generate a default id
+	data["€id"] = uuid.New()
 	var res []any
 
 	// Extract the sheet

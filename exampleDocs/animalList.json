@@ -1,6 +1,14 @@
 [
-	"cats",
-	"dogs",
-	"pigs",
-	"cows"
+	{
+		"label": "cats",
+		"€id": "d74c453f-e944-485c-a0fe-31bd2304cb7e"
+	},
+	{
+		"label": "dogs",
+		"€id": "622c477d-6fdf-4bf5-a07f-f5a8194e4b7f"
+	},
+	{
+		"label": "pigs",
+		"€id": "1c613929-90a7-4ba2-855d-e294995accff"
+	}
 ]
