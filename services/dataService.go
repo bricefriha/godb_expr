@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"os"
+	"time"
 
 	"github.com/google/uuid"
 )
@@ -43,6 +44,9 @@ func Insert(elem string, pathFile string) {
 	}
 	// Generate a default id
 	data["€id"] = uuid.New()
+	// Add date
+	data["€insertedAt"] = time.Now().UTC().Format(time.RFC3339)
+
 	var res []any
 
 	// Extract the sheet
