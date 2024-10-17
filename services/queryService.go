@@ -29,11 +29,27 @@ func Execute(query string) string {
 			return "Wrong Syntax"
 		}
 
+		// Extract columns
 		var columns []string = strings.Split(columnsRaw, ",")
 
 		println("columns:")
 		for i := 0; i < len(columns); i++ {
 			println(columns[i])
+		}
+
+		// Extract values
+		var valre = regexp.MustCompile(`(?i)VALUES\s*\((.*)\)`)
+		var valRaw = valre.FindStringSubmatch(query)[1]
+
+		if len(valRaw) < 3 {
+			throwSyntaxError()
+			return "Wrong Syntax"
+		}
+		var vals []string = strings.Split(valRaw, ",")
+
+		println("values:")
+		for i := 0; i < len(vals); i++ {
+			println(vals[i])
 		}
 
 	}
