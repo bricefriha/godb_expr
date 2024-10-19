@@ -9,25 +9,6 @@ import (
 	"github.com/google/uuid"
 )
 
-func AddToSheet(name string, pathFile string) {
-	fileData, fileErr := os.ReadFile(pathFile)
-
-	if fileErr != nil {
-		log.Fatal(fileErr)
-	}
-	var res []string
-	// Read the example file
-	json.Unmarshal([]byte(string(fileData)), &res)
-
-	// Add an animal
-	newList := append(res, name)
-
-	newData, err := json.MarshalIndent(newList, "", "	")
-	if err != nil {
-		log.Fatal(err)
-	}
-	os.WriteFile(pathFile, newData, os.ModePerm)
-}
 func Insert(elem string, pathFile string) {
 	var elemData = []byte(elem)
 	// Read the sheet
