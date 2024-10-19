@@ -42,3 +42,36 @@ func Insert(elem string, pathFile string) {
 	}
 	os.WriteFile(pathFile, newData, os.ModePerm)
 }
+
+func CreateTable(name string, pathFile string) {
+	// Read the sheet
+	fileData, fileErr := os.ReadFile(pathFile)
+	if fileErr != nil {
+		log.Fatal(fileErr)
+	}
+
+	// Convert the data to structure
+	data := make(map[string]interface{})
+
+	// Set name
+	data["name"] = name
+	// Generate a default id
+	data["€id"] = uuid.New()
+	// Add date
+	data["€insertedAt"] = time.Now().UTC().Format(time.RFC3339)
+	data["data"] = []interface{}{}
+
+	var res []any
+
+	// Extract the sheet
+	json.Unmarshal([]byte(string(fileData)), &res)
+
+	// Add the line
+	newList := append(res, data)
+
+	newData, err := json.MarshalIndent(newList, "", "	")
+	if err != nil {
+		log.Fatal(err)
+	}
+	os.WriteFile(pathFile, newData, os.ModePerm)
+}
