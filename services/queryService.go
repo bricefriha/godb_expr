@@ -56,6 +56,8 @@ func Execute(query string) string {
 				}
 			}
 		}
+		// Execute insert
+		Insert(jsonData, fmt.Sprintf("exampleDocs/%s.json", addr[0]))
 		return jsonData
 
 	}
