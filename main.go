@@ -1,21 +1,21 @@
 package main
 
 import (
-	"fmt"
 	"godb/services"
+	"os"
 )
 
 func main() {
-	fmt.Println("Engine started!!")
+	if len(os.Args) > 0 && os.Args[1][0] == '-' {
+		action := os.Args[1]
 
-	// Create table
-	var res = services.Execute(`
-	CREATE TABLE animalList.animals`)
+		switch action {
+		case "-exc":
+			services.Execute(os.Args[2])
+		default:
+			return
 
-	// Insert
-	// var res = services.Execute(`
-	// INSERT INTO animalList.animals (label, legs)
-	// VALUES ("Cows", 4)`)
+		}
 
-	fmt.Println(res)
+	}
 }
