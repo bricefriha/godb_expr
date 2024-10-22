@@ -3,7 +3,10 @@ The Godb_expr is a database engine utilising JSON files (as sheets). Similar to 
 
 > THIS PROJECT HAS NO PRETENSION AT ALL; DO NOT USE THIS TO INSULT MY LACK OF UNDERSTANDING OF A MARKET. INSTEAD, I WOULD INVITE YOU TO USE ANY OTHER OF MY OTHER PROJECTS
 
+## Functions
+- `- exc`: To execute any query
 
+e.g.: ```go run main.go -exc "CREATE TABLE animalList.animal"```
 ## Properties
 
 ### Bear in mind
