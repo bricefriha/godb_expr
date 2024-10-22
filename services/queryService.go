@@ -10,6 +10,16 @@ func Execute(query string) string {
 	var fields = strings.Fields(query)
 
 	switch fields[0] {
+	case "CREATE":
+		if fields[1] != "TABLE" {
+			throwSyntaxError()
+			return "Wrong Syntax"
+		}
+		addr := strings.Split(fields[2], ".")
+		if len(addr) < 2 {
+			return "database unspecified"
+		}
+		CreateTable(addr[1], fmt.Sprintf("exampleDocs/%s.json", addr[0]))
 	case "INSERT":
 		if fields[1] != "INTO" {
 			throwSyntaxError()

@@ -8,12 +8,14 @@ import (
 func main() {
 	fmt.Println("Engine started!!")
 
-	// Add an animal
-	// services.Insert(`
-	// {
-	// 	"label": "cows"
-	// }`, "exampleDocs/animalList.json")
-	services.Execute(`
-	INSERT INTO animalList.animals (label, legs) 
-	VALUES ('Cows', 4)`)
+	// Create table
+	var res = services.Execute(`
+	CREATE TABLE animalList.animals`)
+
+	// Insert
+	// var res = services.Execute(`
+	// INSERT INTO animalList.animals (label, legs)
+	// VALUES ("Cows", 4)`)
+
+	fmt.Println(res)
 }
