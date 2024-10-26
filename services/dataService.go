@@ -56,9 +56,9 @@ func CreateTable(name string, pathFile string) {
 	// Set name
 	data["name"] = name
 	// Generate a default id
-	data["€id"] = uuid.New()
+	data["*id"] = uuid.New()
 	// Add date
-	data["€insertedAt"] = time.Now().UTC().Format(time.RFC3339)
+	data["*insertedAt"] = time.Now().UTC().Format(time.RFC3339)
 	data["data"] = []interface{}{}
 
 	var res []any
