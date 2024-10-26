@@ -2,6 +2,7 @@ package services
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"os"
 	"time"
@@ -9,12 +10,22 @@ import (
 	"github.com/google/uuid"
 )
 
-func Insert(elem string, pathFile string) {
+type table struct {
+	Id         string `json:"*id"`
+	InsertedAt string `json:"*insertedAt"`
+	Data       []any  `json:"data,omitempty"`
+	Name       string `json:"name,omitempty"`
+}
+
+func Insert(elem string, database string, tableName string) {
 	var elemData = []byte(elem)
+
+	pathFile := fmt.Sprintf("exampleDocs/%s.json", database)
+
 	// Read the sheet
 	fileData, fileErr := os.ReadFile(pathFile)
 	if fileErr != nil {
-		log.Fatal(fileErr)
+		fmt.Printf("Database '%s' not found.", database)
 	}
 
 	// Convert the data to structure
@@ -28,19 +39,28 @@ func Insert(elem string, pathFile string) {
 	// Add date
 	data["€insertedAt"] = time.Now().UTC().Format(time.RFC3339)
 
-	var res []any
+	var res []table
 
 	// Extract the sheet
 	json.Unmarshal([]byte(string(fileData)), &res)
 
-	// Add the line
-	newList := append(res, data)
+	// Get the table
+	filled := false
+	for i := 0; i < len(res) && !filled; i++ {
+		if res[i].Name == tableName {
+			res[i].Data = append(res[i].Data, data)
+			filled = true
+		}
+	}
 
-	newData, err := json.MarshalIndent(newList, "", "	")
+	newData, err := json.MarshalIndent(res, "", "	")
 	if err != nil {
 		log.Fatal(err)
 	}
-	os.WriteFile(pathFile, newData, os.ModePerm)
+	err = os.WriteFile(pathFile, newData, os.ModePerm)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func CreateTable(name string, pathFile string) {

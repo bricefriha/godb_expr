@@ -3,6 +3,7 @@ package services
 import (
 	"fmt"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -43,13 +44,14 @@ func Execute(query string) string {
 		var columns []string = strings.Split(columnsRaw, ",")
 
 		// Extract values
-		var valre = regexp.MustCompile(`(?i)VALUES\s*\((.*)\)`)
+		var valre = regexp.MustCompile(`(?i)VALUES\s*\((.*?)\)`)
 		var valRaw = valre.FindStringSubmatch(query)[1]
 
 		if len(valRaw) < 3 {
 			throwSyntaxError()
 			return "Wrong Syntax"
 		}
+
 		var vals []string = strings.Split(valRaw, ",")
 		var jsonData string = ``
 
@@ -60,14 +62,14 @@ func Execute(query string) string {
 			if i == len(columns) {
 				jsonData += "}"
 			} else {
-				jsonData += fmt.Sprintf(`"%s": %s`, columns[i], vals[i])
+				jsonData += fmt.Sprintf(`"%s": %s`, columns[i], legilimiseValue(vals[i]))
 				if i < len(columns)-1 {
 					jsonData += ","
 				}
 			}
 		}
 		// Execute insert
-		Insert(jsonData, fmt.Sprintf("exampleDocs/%s.json", addr[0]))
+		Insert(jsonData, addr[0], addr[1])
 		return jsonData
 
 	}
@@ -76,4 +78,18 @@ func Execute(query string) string {
 }
 func throwSyntaxError() {
 	fmt.Println("Wrong Syntax")
+}
+func legilimiseValue(input string) string {
+	// Check if the input is a boolean
+	if strings.ToLower(input) == "true" || strings.ToLower(input) == "false" {
+		return input
+	}
+
+	// Check if the input is a number
+	if _, err := strconv.ParseFloat(input, 64); err == nil {
+		return input
+	}
+
+	// If it's neither a boolean nor a number, add quotes
+	return fmt.Sprintf(`"%s"`, input)
 }
