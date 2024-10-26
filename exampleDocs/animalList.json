@@ -1,17 +1,24 @@
 [
 	{
-		"label": "cats",
-		"€id": "d74c453f-e944-485c-a0fe-31bd2304cb7e",
-		"€insertedAt": "2024-10-16T10:52:16Z"
-	},
-	{
-		"label": "dogs",
-		"€id": "622c477d-6fdf-4bf5-a07f-f5a8194e4b7f",
-		"€insertedAt": "2024-10-16T10:52:16Z"
-	},
-	{
-		"label": "pigs",
-		"€id": "1c613929-90a7-4ba2-855d-e294995accff",
-		"€insertedAt": "2024-10-16T10:52:16Z"
+		"*id": "8d1baf8f-a211-49f5-9587-14cdd4401522",
+		"*insertedAt": "2024-10-22T17:45:10Z",
+		"data": [
+			{
+				"label": "cows",
+				"€id": "11d3831d-ae33-4f8e-a3bc-ee119ef67688",
+				"€insertedAt": "2024-10-26T11:44:41Z"
+			},
+			{
+				"label": "cats",
+				"€id": "3334b9a8-f68d-42ff-ba19-5e34fba02c4e",
+				"€insertedAt": "2024-10-26T11:47:29Z"
+			},
+			{
+				"label": "dogs",
+				"€id": "7f6f3aca-cbef-4f17-9755-f3cba87db6d4",
+				"€insertedAt": "2024-10-26T11:47:38Z"
+			}
+		],
+		"name": "animal"
 	}
 ]
