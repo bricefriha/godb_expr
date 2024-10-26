@@ -29,9 +29,6 @@ func Execute(query string) string {
 		// get address
 		var addr []string = strings.Split(fields[2], ".")
 
-		println(addr[0])
-		println(addr[1])
-
 		re := regexp.MustCompile(`\(([^)]+)\)`)
 		columnsRaw := re.FindStringSubmatch(query)[1]
 
