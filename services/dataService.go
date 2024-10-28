@@ -20,7 +20,7 @@ type table struct {
 func Insert(elem string, database string, tableName string) {
 	var elemData = []byte(elem)
 
-	pathFile := fmt.Sprintf("exampleDocs/%s.json", database)
+	pathFile := fmt.Sprintf("exampleSheets/%s.json", database)
 
 	// Read the sheet
 	fileData, fileErr := os.ReadFile(pathFile)
