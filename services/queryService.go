@@ -73,8 +73,14 @@ func Execute(query string) string {
 
 	return "fail"
 }
-func throwSyntaxError() {
-	fmt.Println("Wrong Syntax")
+func throwSyntaxError(detail ...string) {
+	if len(detail) <= 0 {
+		fmt.Println("Wrong Syntax")
+		return
+	}
+
+	fmt.Sprintf("Wrong syntax: %s", detail)
+
 }
 func legilimiseValue(input string) string {
 	// Check if the input is a boolean
