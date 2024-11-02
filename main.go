@@ -11,7 +11,7 @@ func main() {
 
 		switch action {
 		case "-exc":
-			services.Execute(os.Args[2])
+			println(services.Execute(os.Args[2]))
 		default:
 			return
 
