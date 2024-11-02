@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/google/uuid"
@@ -61,6 +62,50 @@ func Insert(elem string, database string, tableName string) {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func Select(selectors string, database string, tableName string, condition string) string {
+	pathFile := fmt.Sprintf("exampleSheets/%s.json", database)
+
+	// Read the sheet
+	fileData, fileErr := os.ReadFile(pathFile)
+	if fileErr != nil {
+		fmt.Printf("Database '%s' not found.", database)
+	}
+
+	var res []table
+	// Convert the data to structure
+	json.Unmarshal([]byte(string(fileData)), &res)
+
+	if tableName == "*" {
+		if selectors == "*" {
+			data, err := json.Marshal(res)
+			if err != nil {
+				log.Fatal(err)
+			}
+			return string(data)
+		}
+	}
+
+	var tableTarget table
+
+	// Get the table
+	for i := 0; i < len(res) && len(tableTarget.Id) <= 0; i++ {
+		if res[i].Name == tableName {
+			tableTarget = res[i]
+		}
+	}
+
+	if strings.Contains(selectors, "*") {
+		data, err := json.Marshal(tableTarget.Data)
+		if err != nil {
+			log.Fatal(err)
+		}
+		return string(data)
+	}
+
+	return "null"
+
 }
 
 func CreateTable(name string, pathFile string) {
