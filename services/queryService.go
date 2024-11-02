@@ -11,6 +11,7 @@ func Execute(query string) string {
 	var fields = strings.Fields(query)
 
 	switch fields[0] {
+
 	case "CREATE":
 		if fields[1] != "TABLE" {
 			throwSyntaxError()
@@ -21,6 +22,7 @@ func Execute(query string) string {
 			return "database unspecified"
 		}
 		CreateTable(addr[1], fmt.Sprintf("exampleDocs/%s.json", addr[0]))
+
 	case "INSERT":
 		if fields[1] != "INTO" {
 			throwSyntaxError()
@@ -69,6 +71,26 @@ func Execute(query string) string {
 		Insert(jsonData, addr[0], addr[1])
 		return jsonData
 
+	case "SELECT":
+		// get address
+		indexFrom := strings.Index(query, "FROM")
+		indexWhere := strings.Index(query, "WHERE")
+
+		//
+		if indexFrom == -1 {
+			throwSyntaxError("query is missing an address. use FROM to state the address your query is targetting")
+			return ""
+		}
+		var addr []string
+		if indexWhere == -1 {
+			addr = strings.Split(query[indexFrom:], ".")
+		} else {
+			addr = strings.Split(query[indexFrom:], ".")
+		}
+
+		selectors := query[strings.Index(query, "SELECT"):indexFrom]
+
+		return Select(selectors, addr[0], addr[1], query[indexWhere:])
 	}
 
 	return "fail"
