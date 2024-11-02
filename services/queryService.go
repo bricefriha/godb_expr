@@ -101,7 +101,7 @@ func throwSyntaxError(detail ...string) {
 		return
 	}
 
-	fmt.Sprintf("Wrong syntax: %s", detail)
+	fmt.Printf("Wrong syntax: %s", detail)
 
 }
 func legilimiseValue(input string) string {
