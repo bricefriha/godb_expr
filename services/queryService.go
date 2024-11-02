@@ -82,15 +82,17 @@ func Execute(query string) string {
 			return ""
 		}
 		var addr []string
-		if indexWhere == -1 {
-			addr = strings.Split(query[indexFrom:], ".")
+		var cond string
+		if indexWhere != -1 {
+			addr = strings.Split(query[indexFrom+5:indexWhere], ".")
+			cond = query[indexWhere+6:]
 		} else {
-			addr = strings.Split(query[indexFrom:], ".")
+			addr = strings.Split(query[indexFrom+5:], ".")
 		}
 
-		selectors := query[strings.Index(query, "SELECT"):indexFrom]
+		selectors := query[strings.Index(query, "SELECT")+7 : indexFrom]
 
-		return Select(selectors, addr[0], addr[1], query[indexWhere:])
+		return Select(selectors, addr[0], addr[1], cond)
 	}
 
 	return "fail"
