@@ -12,10 +12,10 @@ import (
 )
 
 type table struct {
-	Id         string `json:"*id"`
-	InsertedAt string `json:"*insertedAt"`
-	Data       []any  `json:"data,omitempty"`
-	Name       string `json:"name,omitempty"`
+	Id         string                   `json:"*id"`
+	InsertedAt string                   `json:"*insertedAt"`
+	Data       []map[string]interface{} `json:"data,omitempty"`
+	Name       string                   `json:"name,omitempty"`
 }
 
 func Insert(elem string, database string, tableName string) {
@@ -100,6 +100,39 @@ func Select(selectors string, database string, tableName string, condition strin
 		data, err := json.Marshal(tableTarget.Data)
 		if err != nil {
 			log.Fatal(err)
+		}
+		return string(data)
+	}
+
+	var result []map[string]interface{}
+	selects := strings.Split(selectors, ",")
+
+	for i := 0; i < len(tableTarget.Data); i++ {
+		item := make(map[string]interface{})
+		for si := 0; si < len(selects); si++ {
+			selectIndex := selects[si]
+			if strings.Contains(strings.ToLower(selectIndex), "as") {
+				parts := strings.Split(selectIndex, "as")
+				indexItem := strings.ReplaceAll(parts[1], " ", "")
+				propItem := strings.ReplaceAll(parts[0], " ", "")
+
+				item[indexItem] = tableTarget.Data[i][propItem]
+
+			} else {
+				selectIndex = strings.ReplaceAll(selectIndex, " ", "")
+				item[selectIndex] = tableTarget.Data[i][selectIndex]
+			}
+
+		}
+		if len(item) > 0 {
+			result = append(result, item)
+		}
+	}
+	if len(result) > 0 {
+		data, err := json.Marshal(result)
+		if err != nil {
+			log.Fatal(err)
+			return "null"
 		}
 		return string(data)
 	}
