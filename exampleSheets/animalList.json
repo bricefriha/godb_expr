@@ -5,18 +5,19 @@
 		"data": [
 			{
 				"label": "cows",
-				"€id": "11d3831d-ae33-4f8e-a3bc-ee119ef67688",
-				"€insertedAt": "2024-10-26T11:44:41Z"
+				"*id": "11d3831d-ae33-4f8e-a3bc-ee119ef67688",
+				"*insertedAt": "2024-10-26T11:44:41Z"
 			},
 			{
 				"label": "cats",
-				"€id": "3334b9a8-f68d-42ff-ba19-5e34fba02c4e",
-				"€insertedAt": "2024-10-26T11:47:29Z"
+				"*id": "3334b9a8-f68d-42ff-ba19-5e34fba02c4e",
+				"*insertedAt": "2024-10-26T11:47:29Z"
 			},
 			{
 				"label": "dogs",
-				"€id": "7f6f3aca-cbef-4f17-9755-f3cba87db6d4",
-				"€insertedAt": "2024-10-26T11:47:38Z"
+				"*id": "7f6f3aca-cbef-4f17-9755-f3cba87db6d4",
+				"*insertedAt": "2024-10-26T11:47:38Z"
+			},
 			}
 		],
 		"name": "animal"

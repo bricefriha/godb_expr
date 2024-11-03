@@ -36,9 +36,9 @@ func Insert(elem string, database string, tableName string) {
 		panic(err)
 	}
 	// Generate a default id
-	data["€id"] = uuid.New()
+	data["*id"] = uuid.New()
 	// Add date
-	data["€insertedAt"] = time.Now().UTC().Format(time.RFC3339)
+	data["*insertedAt"] = time.Now().UTC().Format(time.RFC3339)
 
 	var res []table
 
